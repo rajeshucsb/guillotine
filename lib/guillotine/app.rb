@@ -7,6 +7,8 @@ module Guillotine
     set :service, nil
 
     get "/" do
+      logger.info request
+      
       if params[:code].nil?
         default_url = settings.service.default_url
         redirect default_url if !default_url.nil?
