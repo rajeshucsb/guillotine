@@ -7,8 +7,6 @@ module Guillotine
     set :service, nil
 
     get "/" do
-      logger.info request
-      
       if params[:code].nil?
         default_url = settings.service.default_url
         redirect default_url if !default_url.nil?
@@ -16,6 +14,8 @@ module Guillotine
     end
 
     get "/:code" do
+      logger.info request
+      
       escaped = Addressable::URI.escape(params[:code])
       status, head, body = settings.service.get(escaped)
       [status, head, simple_escape(body)]
