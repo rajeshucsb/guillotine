@@ -5,11 +5,7 @@ module Guillotine
   # output is fit Sinatra to return.
   class App < Sinatra::Base
     set :service, nil
-    
-    configure do 
-      enable :logging
-    end
-    
+
     get "/" do
       if params[:code].nil?
         default_url = settings.service.default_url
