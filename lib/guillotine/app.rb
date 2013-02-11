@@ -1,11 +1,23 @@
 require 'sinatra/base'
+require 'logger'
 
 module Guillotine
   # Essentially herds Sinatra input to Guillotine::Service, and ensures the
   # output is fit Sinatra to return.
   class App < Sinatra::Base
     set :service, nil
-
+    
+    configure do 
+      enable :logging
+      LOGGER = Logger.new('sinatra.log')
+    end
+    
+    helpers do
+      def logger
+        LOGGER
+      end
+    end       
+    
     get "/" do
       if params[:code].nil?
         default_url = settings.service.default_url
