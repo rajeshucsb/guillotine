@@ -26,7 +26,7 @@ module Guillotine
     end
 
     get "/:code" do
-      logger.info request
+      logger.info request.env
       
       escaped = Addressable::URI.escape(params[:code])
       status, head, body = settings.service.get(escaped)
